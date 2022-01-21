@@ -1,5 +1,13 @@
 ## https://www.digitalocean.com/
 
+0.安装nginx 
+
+   sudo yum install epel-release
+   sudo yum install nginx
+
+备份
+    tar -czvf nginx_$(date +'%F_%H-%M-%S').tar.gz nginx.conf sites-available/ sites-enabled/ nginxconfig.io/
+
  1、 上传文件 到你的服务器的/etc/nginx 目录.
 
 
@@ -10,6 +18,8 @@
      openssl dhparam -out /etc/nginx/dhparam.pem 2048 
 
 2.2 创建一个通用的ACME-challenge目录(用于 Let's Encrypt):
+     
+       useradd nginx -s /sbin/nologin -M
 
       mkdir -p /var/www/_letsencrypt
       chown nginx /var/www/_letsencrypt
@@ -24,6 +34,8 @@
          sudo nginx -t && sudo systemctl reload nginx
   3.3 使用Certbot从 Let's Encrypt 获得SSL证书:
 
+         sudo yum install epel-release
+        sudo yum install certbot
         certbot certonly --webroot -d baby.yyuan.wang --email 807279070@qq.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
 
 3.4 在配置中取消注释SSL相关指令:
