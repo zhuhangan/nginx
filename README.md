@@ -27,7 +27,7 @@
 3.Cerbot
  3.1 注释掉配置中的SSL相关指令:
 
-       sed -i -r 's/(listen .*443)/\1; #/g; s/(ssl_(certificate|certificate_key|trusted_certificate) )/#;#\1/g; s/(server \{)/\1\n    ssl off;/g' /etc/nginx/sites-available/baby.yyuan.wang.conf
+    sed -i -r 's/(listen .*443)/\1; #/g; s/(ssl_(certificate|certificate_key|trusted_certificate) )/#;#\1/g; s/(server \{)/\1\n    ssl off;/g' /etc/nginx/sites-enabled/api.yyuan.wang.conf /etc/nginx/sites-enabled/baby.yyuan.wang.conf
 
   3.2 重新加载你的NGINX服务器:
 
@@ -37,10 +37,12 @@
          sudo yum install epel-release
         sudo yum install certbot
         certbot certonly --webroot -d baby.yyuan.wang --email 807279070@qq.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
+       certbot certonly --webroot -d api.yyuan.wang --email 807279070@qq.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
 
 3.4 在配置中取消注释SSL相关指令:
 
-       sed -i -r -z 's/#?; ?#//g; s/(server \{)\n    ssl off;/\1/g' /etc/nginx/sites-available/baby.yyuan.wang.conf
+       sed -i -r -z 's/#?; ?#//g; s/(server \{)\n    ssl off;/\1/g' /etc/nginx/sites-enabled/api.yyuan.wang.conf /etc/nginx/sites-enabled/baby.yyuan.wang.conf
+
 
    3.5   重新加载你的NGINX服务器:
 
